@@ -6,6 +6,7 @@ boolean errorOccured = false;
 int selectedPin = 0;
 boolean[] digitalOut = new boolean[14];
 int[] analogOut = new int[14];
+boolean[] pmwSupported = {false, false, false, true, false, false, true, true, false, false, true, true, true, false, false};
 boolean[] pmwOut = new boolean[14];
 
 /* --- Properties start --- */
@@ -49,7 +50,7 @@ void draw() {
 		fill(255);
 		textSize(30);
 		text("D" + i, 60, i * 50 + 40);
-		if(i == 3 || (i >= 5 && i <= 6) || (i >= 9 && i <= 11)) {
+		if(pmwSupported[i]) {
 			if(pmwOut[i]) fill(255, 255, 0);
 			else fill(255);
 			textSize(20);
@@ -71,7 +72,6 @@ void keyPressed() {
 		selectedPin--;
 		if(selectedPin < 0) selectedPin = 13;
 	}
-	else if(keyCode == 90 && !pmwOut[selectedPin]) {
-		digitalOut[selectedPin] = !digitalOut[selectedPin];
-	}
+	else if(keyCode == 90 && !pmwOut[selectedPin]) digitalOut[selectedPin] = !digitalOut[selectedPin];
+	else if(keyCode == 88 && pmwSupported[selectedPin]) pmwOut[selectedPin] = !pmwOut[selectedPin];
 }
