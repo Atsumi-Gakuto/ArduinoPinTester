@@ -43,17 +43,22 @@ void draw() {
 
 	background(120);
 	fill(0, 255, 0);
-	noStroke();
-	square(20, selectedPin * 50 + 21, 20);
+	stroke(0, 255, 0);
+	square(20, selectedPin * 50 + 20, 20);
 	for(int i = 0; i < 14; i++) {
 		fill(255);
 		textSize(30);
 		text("D" + i, 60, i * 50 + 40);
 		if(i == 3 || (i >= 5 && i <= 6) || (i >= 9 && i <= 11)) {
+			if(pmwOut[i]) fill(255, 255, 0);
+			else fill(255);
 			textSize(20);
 			text("PMW", 130, i * 50 + 40);
 		}
-		rect(300, i * 50 + 21, 20, 20);
+		if(digitalOut[i]) fill(255);
+		else noFill();
+		stroke(255);
+		rect(300, i * 50 + 20, 20, 20);
 	}
 }
 
@@ -65,5 +70,8 @@ void keyPressed() {
 	else if(keyCode == 38) {
 		selectedPin--;
 		if(selectedPin < 0) selectedPin = 13;
+	}
+	else if(keyCode == 90 && !pmwOut[selectedPin]) {
+		digitalOut[selectedPin] = !digitalOut[selectedPin];
 	}
 }
