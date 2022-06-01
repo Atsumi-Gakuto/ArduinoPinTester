@@ -56,3 +56,14 @@ void draw() {
 		rect(300, i * 50 + 21, 20, 20);
 	}
 }
+
+void keyPressed() {
+	if(keyCode == 40) {
+		selectedPin++;
+		if(selectedPin > 13) selectedPin = 0;
+	}
+	else if(keyCode == 38) {
+		selectedPin--;
+		if(selectedPin < 0) selectedPin = 13;
+	}
+}
