@@ -63,11 +63,15 @@ void draw() {
 			rect(200, i * 50 + 20, 120, 20);
 			fill(255);
 			rect(320 - 120 * ((float)analogOut[i] / 255), i * 50 + 20, 120 * ((float)analogOut[i] / 255), 20);
+			arduino.analogWrite(i, analogOut[i]);
 		}
 		else {
 			if(digitalOut[i]) fill(255);
 			else noFill();
 			square(300, i * 50 + 20, 20);
+			arduino.pinMode(i, Arduino.OUTPUT);
+			if(digitalOut[i]) arduino.digitalWrite(i, Arduino.HIGH);
+			else arduino.digitalWrite(i, Arduino.LOW);
 		}
 	}
 }
