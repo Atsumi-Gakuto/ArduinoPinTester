@@ -3,6 +3,10 @@ import cc.arduino.*;
 Arduino arduino;
 
 boolean errorOccured = false;
+int selectedPin = 0;
+boolean[] digitalOut = new boolean[14];
+int[] analogOut = new int[14];
+boolean[] pmwOut = new boolean[14];
 
 /* --- Properties start --- */
 
@@ -25,7 +29,30 @@ void setup() {
 		errorOccured = true;
 		return;
 	}
-	frameRate(30);
-	size(1005, 510);
+	for(int i = 0; i < 14; i++) {
+		digitalOut[i] = false;
+		analogOut[i] = 0;
+		pmwOut[i] = false;
+	}
+	size(350, 715);
 	textFont(loadFont(fontFile));
+}
+
+void draw() {
+	if(errorOccured) exit(); //Exits if any errors occured in setup();
+
+	background(120);
+	fill(0, 255, 0);
+	noStroke();
+	square(20, selectedPin * 50 + 21, 20);
+	for(int i = 0; i < 14; i++) {
+		fill(255);
+		textSize(30);
+		text("D" + i, 60, i * 50 + 40);
+		if(i == 3 || (i >= 5 && i <= 6) || (i >= 9 && i <= 11)) {
+			textSize(20);
+			text("PMW", 130, i * 50 + 40);
+		}
+		rect(300, i * 50 + 21, 20, 20);
+	}
 }
