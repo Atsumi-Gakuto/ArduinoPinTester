@@ -54,7 +54,7 @@ void draw() {
 			if(pwmOut[i]) fill(255, 255, 0);
 			else fill(255);
 			textSize(20);
-			text("pwm", 130, i * 50 + 40);
+			text("PWM", 130, i * 50 + 40);
 		}
 		stroke(255);
 		if(pwmOut[i]) {
@@ -78,7 +78,7 @@ void draw() {
 	text("Up Down: Select pins", 400, 610);
 	text("Left Right: Increase/Decrease analog output", 400, 630);
 	text("Z: Toggle digital output", 400, 650);
-	text("X: Toggle analog/digital", 400, 670);
+	text("X: Toggle analog/digital output", 400, 670);
 	text("Esc: Exit", 400, 690);
 }
 
