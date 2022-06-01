@@ -42,7 +42,6 @@ void setup() {
 
 void draw() {
 	if(errorOccured) exit(); //Exits if any errors occured in setup();
-
 	background(120);
 	fill(0, 255, 0);
 	stroke(0, 255, 0);
@@ -74,13 +73,13 @@ void draw() {
 			else arduino.digitalWrite(i, Arduino.LOW);
 		}
 	}
-	text("Controls", 380, 600);
+	text("Controls", 380, 580);
 	textSize(20);
-	text("Up Down: Select pins", 400, 630);
-	text("Left Right: Increase/Decrease analog output", 400, 650);
-	text("Z: Toggle digital output", 400, 670);
-	text("X: Toggle analog/digital ", 400, 690);
-
+	text("Up Down: Select pins", 400, 610);
+	text("Left Right: Increase/Decrease analog output", 400, 630);
+	text("Z: Toggle digital output", 400, 650);
+	text("X: Toggle analog/digital", 400, 670);
+	text("Esc: Exit", 400, 690);
 }
 
 void keyPressed() {
