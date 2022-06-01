@@ -36,7 +36,7 @@ void setup() {
 		analogOut[i] = 0;
 		pwmOut[i] = false;
 	}
-	size(350, 715);
+	size(945, 715);
 	textFont(loadFont(fontFile));
 }
 
@@ -74,6 +74,13 @@ void draw() {
 			else arduino.digitalWrite(i, Arduino.LOW);
 		}
 	}
+	text("Controls", 380, 600);
+	textSize(20);
+	text("Up Down: Select pins", 400, 630);
+	text("Left Right: Increase/Decrease analog output", 400, 650);
+	text("Z: Toggle digital output", 400, 670);
+	text("X: Toggle analog/digital ", 400, 690);
+
 }
 
 void keyPressed() {
