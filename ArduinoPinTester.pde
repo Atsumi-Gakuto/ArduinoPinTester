@@ -6,13 +6,14 @@ boolean errorOccured = false;
 int selectedPin = 0;
 boolean[] digitalOut = new boolean[14];
 int[] analogOut = new int[14];
-boolean[] pmwSupported = {false, false, false, true, false, false, true, true, false, false, true, true, true, false, false};
-boolean[] pmwOut = new boolean[14];
+boolean[] pwmSupported = {false, false, false, true, false, false, true, true, false, false, true, true, true, false, false};
+boolean[] pwmOut = new boolean[14];
 
 /* --- Properties start --- */
 
 String serialPort = "COM3"; //Arduino serial port.
 String fontFile = "CourierNewPSMT-48.vlw"; //Font file name.
+int analogSensitivity = 4; //Determines how fast analog bar moves.
 
 /* --- Properties end --- */
 
@@ -33,7 +34,7 @@ void setup() {
 	for(int i = 0; i < 14; i++) {
 		digitalOut[i] = false;
 		analogOut[i] = 0;
-		pmwOut[i] = false;
+		pwmOut[i] = false;
 	}
 	size(350, 715);
 	textFont(loadFont(fontFile));
@@ -50,16 +51,24 @@ void draw() {
 		fill(255);
 		textSize(30);
 		text("D" + i, 60, i * 50 + 40);
-		if(pmwSupported[i]) {
-			if(pmwOut[i]) fill(255, 255, 0);
+		if(pwmSupported[i]) {
+			if(pwmOut[i]) fill(255, 255, 0);
 			else fill(255);
 			textSize(20);
-			text("PMW", 130, i * 50 + 40);
+			text("pwm", 130, i * 50 + 40);
 		}
-		if(digitalOut[i]) fill(255);
-		else noFill();
 		stroke(255);
-		rect(300, i * 50 + 20, 20, 20);
+		if(pwmOut[i]) {
+			noFill();
+			rect(200, i * 50 + 20, 120, 20);
+			fill(255);
+			rect(320 - 120 * ((float)analogOut[i] / 255), i * 50 + 20, 120 * ((float)analogOut[i] / 255), 20);
+		}
+		else {
+			if(digitalOut[i]) fill(255);
+			else noFill();
+			square(300, i * 50 + 20, 20);
+		}
 	}
 }
 
@@ -72,6 +81,14 @@ void keyPressed() {
 		selectedPin--;
 		if(selectedPin < 0) selectedPin = 13;
 	}
-	else if(keyCode == 90 && !pmwOut[selectedPin]) digitalOut[selectedPin] = !digitalOut[selectedPin];
-	else if(keyCode == 88 && pmwSupported[selectedPin]) pmwOut[selectedPin] = !pmwOut[selectedPin];
+	else if(keyCode == 37 && pwmOut[selectedPin]) {
+		analogOut[selectedPin] += 4;
+		if(analogOut[selectedPin] > 255) analogOut[selectedPin] = 255;
+	}
+	else if(keyCode == 39 && pwmOut[selectedPin]) {
+		analogOut[selectedPin] -= 4;
+		if(analogOut[selectedPin] < 0) analogOut[selectedPin] = 0;
+	}
+	else if(keyCode == 90 && !pwmOut[selectedPin]) digitalOut[selectedPin] = !digitalOut[selectedPin];
+	else if(keyCode == 88 && pwmSupported[selectedPin]) pwmOut[selectedPin] = !pwmOut[selectedPin];
 }
