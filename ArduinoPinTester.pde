@@ -6,12 +6,12 @@ boolean errorOccured = false;
 int selectedPin = 0;
 boolean[] digitalOut = new boolean[14];
 int[] analogOut = new int[14];
-boolean[] pwmSupported = {false, false, false, true, false, false, true, true, false, false, true, true, true, false, false};
+boolean[] pwmSupported = {false, false, false, true, false, true, true, false, false, true, true, true, false, false};
 boolean[] pwmOut = new boolean[14];
 
 /* --- Properties start --- */
 
-String serialPort = "COM3"; //Arduino serial port.
+String serialPort = ""; //Arduino serial port.
 String fontFile = "CourierNewPSMT-48.vlw"; //Font file name.
 int analogSensitivity = 4; //Determines how fast analog bar moves.
 
